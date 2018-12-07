@@ -6,4 +6,4 @@ COPY ./app /app
 
 WORKDIR /app
 
-CMD ["python", "-m", "app"]
+CMD ["python", "-W", "error::RuntimeWarning", "-m", "app"]

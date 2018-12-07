@@ -1,3 +1,1 @@
-[[Small Test Suite][.SmallTestSuite]]
-[[Medium Test Suite]][.MediumTestSuite]]
-[[Huge Test Suite]][.HugeTestSuite]]
+!contents -R2 -g -p -f -h

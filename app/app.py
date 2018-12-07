@@ -7,9 +7,11 @@ async def simple_handler(request):
 
 async def medium_handler(request):
     await asyncio.sleep(10)
+    return web.Response(status=200, text="OK")
 
 async def complex_handler(request):
     await asyncio.sleep(60)
+    return web.Response(status=200, text="OK")
 
 if __name__ == "__main__":
     app = web.Application()

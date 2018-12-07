@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build . -t geslot/ComplexApp:latest
+docker build . -t geslot/complexapp:latest

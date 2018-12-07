@@ -1,0 +1,6 @@
+-!|script|!-RestTools-!|
+|GET|${api_url}/medium|
+
+!|query:last response as table|
+|status_code       |body      |
+|200               |OK        |

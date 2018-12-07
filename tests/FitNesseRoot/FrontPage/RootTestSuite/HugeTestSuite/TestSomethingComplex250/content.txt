@@ -1,0 +1,6 @@
+-!|script|!-RestTools-!|
+|GET|${api_url}/complex|
+
+!|query:last response as table|
+|status_code       |body      |
+|200               |OK        |
