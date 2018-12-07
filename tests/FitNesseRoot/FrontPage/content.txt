@@ -1,0 +1,3 @@
+[[Small Test Suite][.SmallTestSuite]]
+[[Medium Test Suite]][.MediumTestSuite]]
+[[Huge Test Suite]][.HugeTestSuite]]
