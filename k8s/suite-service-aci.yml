@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: complex-app-aci
+  namespace: complex-app
+spec:
+  selector:
+    name: complex-app-aci
+  clusterIP: None
+  ports:
+  - name: foo
+    port: 32000
+    targetPort: 32000

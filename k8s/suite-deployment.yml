@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: complex-app-debug
+  namespace: complex-app
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      name: complex-app-debug
+  template:
+    metadata:
+      name: complex-app-debug
+      labels:
+        name: complex-app-debug
+    spec:
+      volumes:
+      - name: fixtures
+        emptyDir: {}
+      - name: tests
+        emptyDir: {}
+      initContainers:
+      - image: alpine/git@sha256:94e7d5791a8dcd3a4d45ea6d89b03d1004f8ee02c34c6124f1b6d269e8a312e0
+        name: git-clone-fixtures
+        imagePullPolicy: IfNotPresent
+        command: [ "git", "clone", "https://github.com/VolodymyrLavrenchuk/PySlim", "/PySlim" ]
+        volumeMounts:
+        - name: fixtures
+          mountPath: /PySlim
+      - image: alpine/git@sha256:94e7d5791a8dcd3a4d45ea6d89b03d1004f8ee02c34c6124f1b6d269e8a312e0
+        name: git-clone-tests
+        imagePullPolicy: IfNotPresent
+        command: [ "git", "clone", "https://github.com/OlegRakovitch/ComplexApp", "/ComplexApp" ]
+        volumeMounts:
+        - name: tests
+          mountPath: /ComplexApp
+      containers:
+      - image: geslot/complexapp@sha256:645c55fd2ae67aaa0056e05fd0e4768cb5db8c51e13312f8c08dd13ad8e70055
+        name: complex-app
+        imagePullPolicy: IfNotPresent
+      - image: olegrdemodevwestus2registry.azurecr.io/fitnesse@sha256:7f41845767d4f22ccbb83c769a3a7885068cc4435228dc48477c632684045217
+        name: fitnesse
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: API_URL
+          value: "http://localhost:8080"
+        - name: FITNESSE_ROOT
+          value: /ComplexApp/tests
+        volumeMounts:
+        - name: fixtures
+          mountPath: /binaries/fixtures
+        - name: tests
+          mountPath: /ComplexApp
